@@ -36,7 +36,6 @@ app.get("/collection/:collectionName", (request, response) => {
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.send(results);
   });
-
 });
 app.put("/collection/:collectionName/:id", (req, res, next) => {
   req.collection.updateMany(
