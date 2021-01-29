@@ -55,7 +55,6 @@ app.post("/collection/:collectionName", (request, response, next) => {
     if (e) return next(e);
     response.send(results.ops);
   });
-
 });
 //start the server
 app.listen(process.env.PORT || 5000); //heroku automatically assigns a port, 5000 alone will cause an timeout
