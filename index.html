@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CW1 Maciej Individual Work</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./CSS/style.css" />
+    <script src="./JS/lessons.js"></script>
+  </head>
+  <body>
+    <div id="app" class="app-wrapper">
+      <h1 class="page-title">{{pageTitle}}</h1>
+
+      <div v-if="showItems" class="class-wrapper">
+        <div class="sort-wrapper">
+          <label for="order">Sort by order:</label>
+          <select name="order" id="order">
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+          </select>
+
+          <label for="attribute">Sort by attribute</label>
+          <select name="attribute" id="attribute">
+            <option value="subject">Subject</option>
+            <option value="location">Location</option>
+            <option value="price">Price</option>
+            <option value="availability">Availability</option>
+          </select>
+
+          <button v-on:click="initializeSort">Sort</button>
+        </div>
+        <ul class="classes">
+          <li v-if="render" v-for="(item, index) in classes" :key="index" class="class">
+            <div class="class-box">
+              <img class="image" v-bind:src="item.img" alt="" />
+              <h1>{{item.subject}}</h1>
+              <p>{{item.location}}</p>
+              <p>£{{item.price}}</p>
+              <p>{{item.spaces}}</p>
+
+              <button :id="index" v-on:click="addToBasket(item._id, item.subject, item.location, item.price, item.spaces, item.img, index)">
+                Add to cart
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div v-if="populatedLocalStorage" class="basket-button">
+        <button v-if="showBasketButton" v-on:click="loadBasketPage">
+          Basket
+        </button>
+      </div>
+      <div v-if="displayBasketClasses" class="basketWrapper">
+        <ul class="classes">
+          <li v-for="item in basketClassesArray" class="class">
+            <div class="class-box">
+              <img class="image" v-bind:src="item.img" alt="" />
+              <h1>{{item.subject}}</h1>
+              <p>{{item.location}}</p>
+              <p>£{{item.price}}</p>
+
+              <button v-on:click="removeClass(item.id)">Remove</button>
+            </div>
+          </li>
+        </ul>
+        <div v-if="displayFields">
+          <label for="fname">Your name:</label>
+          <input
+            type="text"
+            id="fname"
+            name="fname"
+            v-model="userName"
+            required
+          />
+          <p style="color: red">{{validationMsgName}}</p>
+          <label for="pnumber">Phone number:</label>
+          <input
+            type="text"
+            id="pnumber"
+            name="pnumber"
+            v-model="userNum"
+            required
+          />
+          <p style="color: red">{{validationMsgNum}}</p>
+
+          <button v-if="numCorrect && nameCorrect" v-on:click="loadCheckOut">
+            Check out
+          </button>
+        </div>
+
+        <button v-on:click="loadMainPage">Return to shop</button>
+        <div v-if="displayCheckOut" class="confirmation" style="width: 100%">
+          <h1 style="color: green; text-align: center">
+            {{confirmationTitle}}
+          </h1>
+          <p style="text-align: center">{{confirmationSub}}</p>
+          <p style="text-align: center">{{confirmationRef}}</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="./JS/app.js"></script>
+  </body>
+</html>
