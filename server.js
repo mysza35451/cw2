@@ -22,7 +22,6 @@ const client = new MongoClient(url);
 const bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 const ObjectID = require("mongodb").ObjectID;
-
 let db;
 MongoClient.connect(url, (err, client) => {
   db = client.db("cw2individual");
