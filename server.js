@@ -17,7 +17,6 @@ const { MongoClient } = require("mongodb");
 
 const url =
   "mongodb+srv://mm3299:Password123@cluster0.lkvin.mongodb.net/cw2individual?retryWrites=true&w=majority";
-
 const client = new MongoClient(url);
 
 const bodyParser = require("body-parser");
