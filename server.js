@@ -30,7 +30,6 @@ app.param("collectionName", (req, res, next, collectionName) => {
   req.collection = db.collection(collectionName);
   return next();
 });
-
 let arrayOfClasses = [];
 app.get("/collection/:collectionName", (request, response) => {
   request.collection.find({}).toArray((e, results) => {
