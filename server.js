@@ -52,7 +52,6 @@ app.put("/collection/:collectionName/:id", (req, res, next) => {
 app.post("/collection/:collectionName", (request, response, next) => {
   request.collection.insertMany(request.body, (e, results) => {
     console.log(request.body)
-
     if (e) return next(e);
 
     response.send(results.ops);
